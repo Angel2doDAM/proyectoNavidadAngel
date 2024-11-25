@@ -75,6 +75,13 @@ public class CrearUsuarioController implements Initializable {
         return todoBien;
     }
 
+    @FXML
+    public void OnVolverClic(ActionEvent actionEvent) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setContentText("Ir a InicioJefeEstudios.fxml");
+        alerta.show();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TipoChoice.getItems().addAll(tipoUsuario);

@@ -1,5 +1,6 @@
 package application.proyectonavidad;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +26,13 @@ public class IniProfController {
     @FXML
     void OnMouseExit(MouseEvent event) {
         cambiarFondoGris(AreaCrear);
+    }
+
+    @FXML
+    public void OnVolverClic(ActionEvent actionEvent) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setContentText("Ir a InicioSesion.fxml");
+        alerta.show();
     }
 
     public void cambiarFondoAzul(AnchorPane areaAzul){

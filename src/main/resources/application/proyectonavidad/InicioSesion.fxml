@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="949.0" style="-fx-background-color: #949494;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.proyectonavidad.InicioSesionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="949.0" style="-fx-background-color: #949494;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.proyectonavidad.InicioSesionController">
    <children>
       <ImageView fitHeight="623.0" fitWidth="645.0" layoutX="163.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -28,7 +28,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="NumeroAsignadoText" layoutX="24.0" layoutY="124.0" prefHeight="35.0" prefWidth="348.0" />
+            <TextField fx:id="NumeroAsignadoText" layoutX="24.0" layoutY="124.0" prefHeight="35.0" prefWidth="348.0" promptText="Introduce tu número asignado" />
             <Label layoutX="26.0" layoutY="171.0" text="Contraseña:">
                <font>
                   <Font size="17.0" />
@@ -39,7 +39,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <PasswordField fx:id="ContraseniaText" layoutX="26.0" layoutY="202.0" prefHeight="35.0" prefWidth="348.0" />
+            <PasswordField fx:id="ContraseniaText" layoutX="26.0" layoutY="202.0" prefHeight="35.0" prefWidth="348.0" promptText="Introduce tu contraseña" />
          </children>
       </AnchorPane>
    </children>

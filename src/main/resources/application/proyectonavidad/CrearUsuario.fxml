@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="949.0" style="-fx-background-color: #949494;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.proyectonavidad.CrearUsuarioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="949.0" style="-fx-background-color: #949494;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.proyectonavidad.CrearUsuarioController">
    <children>
       <ImageView fitHeight="623.0" fitWidth="645.0" layoutX="163.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -31,7 +31,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="NombreText" layoutX="24.0" layoutY="116.0" prefHeight="35.0" prefWidth="348.0" />
+            <TextField fx:id="NombreText" layoutX="24.0" layoutY="116.0" prefHeight="35.0" prefWidth="348.0" promptText="Nombre del usuario" />
             <Label fx:id="errorNombre" layoutX="25.0" layoutY="153.0" textFill="RED">
                <font>
                   <Font size="17.0" />
@@ -42,7 +42,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="NumeroAsignadoText" layoutX="24.0" layoutY="205.0" prefHeight="35.0" prefWidth="348.0" />
+            <TextField fx:id="NumeroAsignadoText" layoutX="24.0" layoutY="205.0" prefHeight="35.0" prefWidth="348.0" promptText="Número del usuario" />
             <Label fx:id="errorNumero" layoutX="24.0" layoutY="242.0" textFill="RED">
                <font>
                   <Font size="17.0" />
@@ -53,7 +53,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <PasswordField fx:id="ContraseniaText" layoutX="24.0" layoutY="295.0" prefHeight="35.0" prefWidth="348.0" />
+            <PasswordField fx:id="ContraseniaText" layoutX="24.0" layoutY="295.0" prefHeight="35.0" prefWidth="348.0" promptText="Contraseña" />
             <Label fx:id="errorContrasenia" layoutX="25.0" layoutY="332.0" textFill="RED">
                <font>
                   <Font size="17.0" />
@@ -77,5 +77,10 @@
             </Button>
          </children>
       </AnchorPane>
+      <Button layoutX="39.0" layoutY="574.0" mnemonicParsing="false" onAction="#OnVolverClic" style="-fx-background-color: #9bc1bc;" text="⬅  Volver" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="949.0" style="-fx-background-color: #949494;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.proyectonavidad.IniJefController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="949.0" style="-fx-background-color: #949494;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.proyectonavidad.IniJefController">
    <children>
       <ImageView fitHeight="623.0" fitWidth="645.0" layoutX="302.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -56,12 +57,17 @@
                   </Label>
                </children>
             </AnchorPane>
+            <Label layoutX="804.0" layoutY="17.0" text="Jefe de Estudios">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <Label layoutX="10.0" layoutY="574.0" text="Jefe de Estudios">
+      <Button layoutX="39.0" layoutY="574.0" mnemonicParsing="false" onAction="#OnVolverClic" style="-fx-background-color: #9bc1bc;" text="⬅  Volver" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
-      </Label>
+      </Button>
    </children>
 </AnchorPane>
