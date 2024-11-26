@@ -38,7 +38,7 @@ public class CrearParteController implements Initializable {
 
     private String tipoParte = "Advertencia";
 
-    private String[] grupos={"2º DAM", "1º DAM"};
+    private String[] grupos={"1º ESO A", "1º ESO B", "2º ESO A", "2º ESO B", "3º ESO A", "3º ESO B", "4º ESO A", "4º ESO B"};
     private String[] horas={"08:30", "09:25", "10:20", "11:40", "12:35", "13:30", "16:00", "16:55", "17:50", "19:00", "19:55", "20:50"};
 
     @FXML

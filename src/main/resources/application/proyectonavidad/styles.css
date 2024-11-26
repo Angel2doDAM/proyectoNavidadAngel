@@ -1,0 +1,29 @@
+.pagination {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+}
+
+.pagination-control {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+    -fx-text-fill: #007bff; /* Color del texto */
+}
+
+.pagination-control:selected {
+    -fx-background-color: #007bff; /* Color de selección */
+    -fx-text-fill: white;
+}
+
+.pagination-control:first-button,
+.pagination-control:last-button {
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: #007bff;
+}
+
+.pagination-control:first-button:hover,
+.pagination-control:last-button:hover {
+    -fx-background-color: #d3eaff;
+}
