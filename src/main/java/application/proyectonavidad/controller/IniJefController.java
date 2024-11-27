@@ -1,10 +1,13 @@
-package application.proyectonavidad;
+package application.proyectonavidad.controller;
 
+import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class IniJefController {
 
@@ -21,17 +24,16 @@ public class IniJefController {
     private AnchorPane ListaPartesPane;
 
     @FXML
-    void OnCrearParteClic(MouseEvent event) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setContentText("Pantalla Crear Parte");
-        alerta.show();
+    private AnchorPane fondoProfe;
+
+    @FXML
+    void OnCrearParteClic(MouseEvent event) throws IOException {
+        ChangeStage.cambioEscena("CrearParte.fxml", fondoProfe);
     }
 
     @FXML
-    void OnCrearProfesorClic(MouseEvent event) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setContentText("Pantalla Crear Profesor");
-        alerta.show();
+    void OnCrearProfesorClic(MouseEvent event) throws IOException {
+        ChangeStage.cambioEscena("CrearUsuario.fxml", fondoProfe);
     }
 
     @FXML
@@ -42,10 +44,8 @@ public class IniJefController {
     }
 
     @FXML
-    void OnListaPartesClic(MouseEvent event) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setContentText("Pantalla Listar Partes");
-        alerta.show();
+    void OnListaPartesClic(MouseEvent event) throws IOException {
+        ChangeStage.cambioEscena("ListaPartes.fxml", fondoProfe);
     }
 
     @FXML
@@ -89,10 +89,8 @@ public class IniJefController {
     }
 
     @FXML
-    public void OnVolverClic(ActionEvent actionEvent) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setContentText("Ir a InicioSesion.fxml");
-        alerta.show();
+    public void OnVolverClic(ActionEvent actionEvent) throws IOException {
+        ChangeStage.cambioEscena("InicioSesion.fxml", fondoProfe);
     }
 
     public void cambiarFondoAzul(AnchorPane areaAzul){

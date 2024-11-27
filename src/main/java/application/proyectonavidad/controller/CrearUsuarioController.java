@@ -1,10 +1,14 @@
-package application.proyectonavidad;
+package application.proyectonavidad.controller;
 
+import application.proyectonavidad.Utils.AlertUtils;
+import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -35,14 +39,15 @@ public class CrearUsuarioController implements Initializable {
     @FXML
     private Label errorTipo;
 
+    @FXML
+    private AnchorPane fondoUsuario;
+
     private String[] tipoUsuario={"Profesor", "Jefe de Estudios"};
 
     @FXML
     void OnCrearUsuarioClic(ActionEvent event) {
         if (camposVacios()){
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setContentText("Usuario Creado");
-            alerta.show();
+            AlertUtils.mostrarAcierto("Usuario creado");
         }
     }
 
@@ -76,10 +81,8 @@ public class CrearUsuarioController implements Initializable {
     }
 
     @FXML
-    public void OnVolverClic(ActionEvent actionEvent) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setContentText("Ir a InicioJefeEstudios.fxml");
-        alerta.show();
+    public void OnVolverClic(ActionEvent actionEvent) throws IOException {
+        ChangeStage.cambioEscena("InicioJefeEstudios.fxml", fondoUsuario);
     }
 
     @Override

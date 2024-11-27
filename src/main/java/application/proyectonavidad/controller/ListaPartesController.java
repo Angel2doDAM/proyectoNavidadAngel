@@ -1,18 +1,17 @@
-package application.proyectonavidad;
+package application.proyectonavidad.controller;
 
+import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
-public class ListaPartesController implements Initializable{
+public class ListaPartesController {
 
     @FXML
     private TextField BuscarNumeroExpediente;
@@ -61,13 +60,8 @@ public class ListaPartesController implements Initializable{
     }
 
     @FXML
-    void OnVolverClic(ActionEvent event) {
-
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        fondoParte.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+    void OnVolverClic(ActionEvent event) throws IOException {
+        ChangeStage.cambioEscena("InicioJefeEstudios.fxml", fondoParte);
     }
 
 }

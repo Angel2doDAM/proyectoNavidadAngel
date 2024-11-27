@@ -1,10 +1,15 @@
-package application.proyectonavidad;
+package application.proyectonavidad.controller;
 
+import application.proyectonavidad.DAO.ProfesorDAO;
+import application.proyectonavidad.Model.Profesores;
+import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class InicioSesionController {
@@ -16,11 +21,18 @@ public class InicioSesionController {
     private TextField NumeroAsignadoText;
 
     @FXML
-    void OnIniciarSesionClic(ActionEvent event) {
+    private AnchorPane InicioFondo;
+
+    ProfesorDAO profesorDAO = new ProfesorDAO();
+
+    Profesores prof1 = new Profesores();
+
+    @FXML
+    void OnIniciarSesionClic(ActionEvent event) throws IOException {
         if (camposVacios()) {
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setContentText("Pantalla Inicio Usuario");
-            alerta.show();
+            if (profesorDAO.buscarProfesor(NumeroAsignadoText.getText(), ContraseniaText.getText())!=null){
+                ChangeStage.cambioEscena("InicioJefeEstudios.fxml", InicioFondo);
+            }
         }
     }
 

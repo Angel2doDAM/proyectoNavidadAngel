@@ -1,4 +1,4 @@
-package application.proyectonavidad;
+package application.proyectonavidad.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

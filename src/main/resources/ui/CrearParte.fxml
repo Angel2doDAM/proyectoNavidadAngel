@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="fondoParte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="949.0" style="-fx-background-color: #befc77;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.proyectonavidad.CrearParteController">
+<AnchorPane fx:id="fondoParte" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="949.0" style="-fx-background-color: #befc77;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.proyectonavidad.controller.CrearParteController">
    <children>
       <Label fx:id="tituloPagina" alignment="CENTER" layoutY="14.0" prefHeight="51.0" prefWidth="949.0" text="PARTE VERDE DE ADVERTENCIA" textAlignment="CENTER">
          <font>
@@ -22,14 +22,13 @@
       <AnchorPane layoutX="-3.0" layoutY="186.0" prefHeight="61.0" prefWidth="956.0" style="-fx-border-color: black;">
          <children>
             <Label layoutX="53.0" layoutY="21.0" text="Profesor:" />
-            <TextField fx:id="NombreProfesor" editable="false" layoutX="177.0" layoutY="18.0" prefHeight="25.0" prefWidth="263.0" />
+            <TextField fx:id="NombreProfesor" editable="false" layoutX="177.0" layoutY="18.0" prefHeight="25.0" prefWidth="263.0" promptText="Si ves esto algo ha fallado" />
          </children>
       </AnchorPane>
       <Label layoutX="52.0" layoutY="128.0" text="Número de expediente" />
       <Label layoutX="52.0" layoutY="145.0" text="del Alumno:" />
-      <TextField fx:id="NumExpedienteAlumnoText" layoutX="224.0" layoutY="133.0" prefHeight="25.0" prefWidth="212.0" promptText="Escribe el número de expediente" />
-      <Label layoutX="524.0" layoutY="137.0" text="Selecciona un Grupo:" />
-      <ComboBox fx:id="GrupoCombo" layoutX="661.0" layoutY="133.0" prefHeight="25.0" prefWidth="219.0" promptText="Selecciona un Grupo" style="-fx-background-color: white;" />
+      <TextField fx:id="NumExpedienteAlumnoText" layoutX="224.0" layoutY="133.0" onKeyPressed="#OnKeyPressed" prefHeight="25.0" prefWidth="212.0" promptText="Escribe el número de expediente" />
+      <Label layoutX="524.0" layoutY="137.0" text="Grupo del Alumno:" />
       <AnchorPane layoutX="-3.0" layoutY="307.0" prefHeight="255.0" prefWidth="956.0" style="-fx-border-color: black;">
          <children>
             <Label layoutX="55.0" layoutY="12.0" prefHeight="20.0" prefWidth="178.0" text="Descripción de los hechos:">
@@ -49,5 +48,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <TextField fx:id="GrupoText" editable="false" layoutX="661.0" layoutY="133.0" prefHeight="25.0" prefWidth="212.0" promptText="'Tab' o 'Intro' para rellenar" />
    </children>
 </AnchorPane>
