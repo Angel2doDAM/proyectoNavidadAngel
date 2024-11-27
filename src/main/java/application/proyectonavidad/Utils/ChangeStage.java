@@ -1,8 +1,10 @@
 package application.proyectonavidad.Utils;
 
+import application.proyectonavidad.controller.CrearParteController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -41,7 +43,7 @@ public class ChangeStage {
     }*/
 
 //    Función para abrir una escena sin cerrar la anterior
-    /*static public EditarController crearEscena(String fxmlnName) throws IOException {
+    static public CrearParteController crearEscena(String fxmlnName) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(R.getUI(fxmlnName));
@@ -51,7 +53,7 @@ public class ChangeStage {
         newStage.sizeToScene();
         newStage.show();
         return loader.getController();
-    }*/
+    }
 
 //    Función creada para cerrar una única escena
     static public void cerrarEscena(AnchorPane rootPane){

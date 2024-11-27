@@ -30,8 +30,13 @@ public class InicioSesionController {
     @FXML
     void OnIniciarSesionClic(ActionEvent event) throws IOException {
         if (camposVacios()) {
-            if (profesorDAO.buscarProfesor(NumeroAsignadoText.getText(), ContraseniaText.getText())!=null){
-                ChangeStage.cambioEscena("InicioJefeEstudios.fxml", InicioFondo);
+            prof1 = profesorDAO.comprobarProfesor(NumeroAsignadoText.getText(), ContraseniaText.getText());
+            if (prof1!=null){
+                if (Objects.equals(prof1.getTipo(), "profesor")) {
+                    ChangeStage.cambioEscena("InicioProfesor.fxml", InicioFondo);
+                } else {
+                    ChangeStage.cambioEscena("InicioJefeEstudios.fxml", InicioFondo);
+                }
             }
         }
     }

@@ -21,12 +21,12 @@ public class ProfesorDAO {
         session = Conexion.getSession();
     }
 
-    public Profesores buscarProfesor(String numero_asignado, String contrasenna) {
+    public Profesores comprobarProfesor(String numero_asignado, String contrasenna) {
         Profesores profesor = null;
         String contrasena = DigestUtils.sha256Hex(contrasenna);
         try {
             session.beginTransaction();
-            profesor = session.createQuery("from Profesores where numero_asignado:numero_asignado and contrasena:contrasena", Profesores.class)
+            profesor = session.createQuery("from Profesores where numero_asignado=:numero_asignado and contrasena=:contrasena", Profesores.class)
                     .setParameter("numero_asignado", numero_asignado)
                     .setParameter("contrasena", contrasena)
                     .stream().findFirst().orElse(null);
@@ -39,13 +39,37 @@ public class ProfesorDAO {
         return profesor;
     }
 
-    public void annadirProfesor(Profesores profesor) {
+    public boolean buscarProfesor(Profesores prof1) {
+        Profesores profesor = null;
+        try {
+            session.beginTransaction();
+            profesor = session.createQuery("from Profesores where numero_asignado=:numero_asignado or nombre=:nombre", Profesores.class)
+                    .setParameter("numero_asignado", prof1.getNumero_asignado())
+                    .setParameter("nombre", prof1.getNombre())
+                    .stream().findFirst().orElse(null);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.clear();
+        }
+        if (profesor==null){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean annadirProfesor(Profesores profesor) {
+        profesor.setContrasena(DigestUtils.sha256Hex(profesor.getContrasena()));
         try {
             session.beginTransaction();
             session.save(profesor);
             session.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             session.getTransaction().rollback();
+            return false;
         } finally {
             session.clear();
         }

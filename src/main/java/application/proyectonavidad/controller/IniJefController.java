@@ -28,7 +28,7 @@ public class IniJefController {
 
     @FXML
     void OnCrearParteClic(MouseEvent event) throws IOException {
-        ChangeStage.cambioEscena("CrearParte.fxml", fondoProfe);
+        ChangeStage.crearEscena("CrearParte.fxml");
     }
 
     @FXML

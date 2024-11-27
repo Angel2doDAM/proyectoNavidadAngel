@@ -36,7 +36,37 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextArea fx:id="DescripcionText" layoutX="55.0" layoutY="33.0" prefHeight="200.0" prefWidth="847.0" promptText="Describe lo sucedido" />
+            <TextArea fx:id="DescripcionText" layoutX="55.0" layoutY="33.0" prefHeight="200.0" prefWidth="387.0" promptText="Describe lo sucedido" />
+            <AnchorPane fx:id="SancionAMano" layoutX="502.0" prefHeight="255.0" prefWidth="439.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="178.0" text="Sanción a recibir:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="SancionText" layoutX="14.0" layoutY="34.0" prefHeight="200.0" prefWidth="387.0" promptText="Describe la sanción" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="SancionComboBox" layoutX="503.0" prefHeight="255.0" prefWidth="439.0" visible="false">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="178.0" text="Sanción a recibir:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="ComboSancion" layoutX="14.0" layoutY="36.0" prefHeight="25.0" prefWidth="263.0" />
+                  <AnchorPane fx:id="RellenarAAmano" layoutY="61.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="176.0" prefWidth="439.0" visible="false">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="178.0" text="Inserta sanción:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="MiniSancionText" layoutX="14.0" layoutY="38.0" prefHeight="134.0" prefWidth="387.0" promptText="Describe la sanción" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
          </children></AnchorPane>
       <Label layoutX="52.0" layoutY="268.0" text="Fecha:" />
       <DatePicker fx:id="FechaPicker" layoutX="174.0" layoutY="264.0" prefHeight="25.0" prefWidth="263.0" promptText="dd/mm/aaaa" />

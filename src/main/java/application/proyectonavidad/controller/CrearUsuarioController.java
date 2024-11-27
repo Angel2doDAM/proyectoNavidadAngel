@@ -1,5 +1,7 @@
 package application.proyectonavidad.controller;
 
+import application.proyectonavidad.DAO.ProfesorDAO;
+import application.proyectonavidad.Model.Profesores;
 import application.proyectonavidad.Utils.AlertUtils;
 import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
@@ -44,10 +46,26 @@ public class CrearUsuarioController implements Initializable {
 
     private String[] tipoUsuario={"Profesor", "Jefe de Estudios"};
 
+    ProfesorDAO profesorDAO = new ProfesorDAO();
+
     @FXML
     void OnCrearUsuarioClic(ActionEvent event) {
+        String tipo = "jefe_de_estudios";
         if (camposVacios()){
-            AlertUtils.mostrarAcierto("Usuario creado");
+            if (Objects.equals(TipoChoice.getValue().toString(), "Profesor")){
+                tipo = "profesor";
+            }
+            Profesores prof1 = new Profesores(ContraseniaText.getText(), NombreText.getText(), NumeroAsignadoText.getText(), tipo);
+            if (!profesorDAO.buscarProfesor(prof1)) {
+                if (profesorDAO.annadirProfesor(prof1)) {
+                    AlertUtils.mostrarAcierto("Usuario creado");
+                    vaciarCampos();
+                } else {
+                    AlertUtils.mostrarError("El Usuario no se ha creado");
+                }
+            } else {
+                AlertUtils.mostrarError("El Usuario ya existe");
+            }
         }
     }
 
@@ -88,5 +106,12 @@ public class CrearUsuarioController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TipoChoice.getItems().addAll(tipoUsuario);
+    }
+
+    public void vaciarCampos(){
+        ContraseniaText.setText("");
+        NumeroAsignadoText.setText("");
+        NombreText.setText("");
+        TipoChoice.setValue(null);
     }
 }

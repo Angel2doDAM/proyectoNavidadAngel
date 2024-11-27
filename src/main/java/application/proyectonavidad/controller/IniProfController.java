@@ -1,10 +1,13 @@
 package application.proyectonavidad.controller;
 
+import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class IniProfController {
 
@@ -12,10 +15,11 @@ public class IniProfController {
     private AnchorPane AreaCrear;
 
     @FXML
-    void OnCrearParteClic(MouseEvent event) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setContentText("Pantalla Crear Parte");
-        alerta.show();
+    private AnchorPane fondoProfe;
+
+    @FXML
+    void OnCrearParteClic(MouseEvent event) throws IOException {
+        ChangeStage.crearEscena("CrearParte.fxml");
     }
 
     @FXML
@@ -29,10 +33,8 @@ public class IniProfController {
     }
 
     @FXML
-    public void OnVolverClic(ActionEvent actionEvent) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setContentText("Ir a InicioSesion.fxml");
-        alerta.show();
+    public void OnVolverClic(ActionEvent actionEvent) throws IOException {
+        ChangeStage.cambioEscena("InicioSesion.fxml", fondoProfe);
     }
 
     public void cambiarFondoAzul(AnchorPane areaAzul){

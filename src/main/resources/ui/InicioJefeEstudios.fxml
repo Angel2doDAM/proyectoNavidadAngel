@@ -57,7 +57,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Label layoutX="807.0" layoutY="34.0" text="Jefe de Estudios">
+            <Label layoutX="801.0" layoutY="34.0" text="Jefe de Estudios">
                <font>
                   <Font size="20.0" />
                </font>
