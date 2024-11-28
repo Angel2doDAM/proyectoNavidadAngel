@@ -27,14 +27,9 @@ public class IniJefController {
     @FXML
     private AnchorPane fondoProfe;
 
-    CrearParteController controllerParte;
-
-    Profesores profesorIniciado = new Profesores();
-
     @FXML
     void OnCrearParteClic(MouseEvent event) throws IOException {
-        controllerParte = ChangeStage.cambioEscenaParte("CrearParte.fxml", fondoProfe);
-        controllerParte.guardarProfeIniciado(profesorIniciado);
+        ChangeStage.cambioEscena("CrearParte.fxml", fondoProfe);
     }
 
     @FXML
@@ -107,7 +102,4 @@ public class IniJefController {
         areaGris.setStyle("-fx-background-color: #E4E4E5;");
     }
 
-    public void guardarProfeIniciado(Profesores Prof1){
-        profesorIniciado = Prof1;
-    }
 }

@@ -1,6 +1,8 @@
 package application.proyectonavidad.controller;
 
-import application.proyectonavidad.Model.Profesores;
+import application.proyectonavidad.DAO.ParteDAO;
+import application.proyectonavidad.Model.*;
+import application.proyectonavidad.Utils.AlertUtils;
 import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,20 +64,35 @@ public class CrearParteController implements Initializable {
 
     private int punt_partes = 1;
 
-    Profesores profesorIniciado = new Profesores();
+    ParteDAO parteDAO = new ParteDAO();
 
-    IniProfController controllerProfe;
-    IniJefController controllerJefe;
+    private String[] horas = {"08:30", "09:25", "10:20", "11:40", "12:35", "13:30", "16:00", "16:55", "17:50", "19:00", "19:55", "20:50"};
+    private String[] sanciones = {"Incoación de expediente o expediente abreviado", "Reunion con la Comisión de Convivencia", "Obligatorio pedir disculpas a los afectados y reparar los daños causados", "✎ Rellenar a mano"};
 
-    private String[] horas={"08:30", "09:25", "10:20", "11:40", "12:35", "13:30", "16:00", "16:55", "17:50", "19:00", "19:55", "20:50"};
-    private String[] sanciones={"Incoación de expediente o expediente abreviado", "Reunion con la Comisión de Convivencia", "Obligatorio pedir disculpas a los afectados y reparar los daños causados", "✎ Rellenar a mano"};
+    Alumnos alumno1;
+    Grupos grupo1;
+
+    int puntos = 1;
 
     @FXML
     void OnCrearClic(ActionEvent event) throws IOException {
-        if (camposVacios()){
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setContentText("Parte creado");
-            alerta.show();
+        if (camposVacios()) {
+            Puntuacion_partes puntiacion = parteDAO.buscarPuntuacionByPuntos(puntos);
+            String sancion = "";
+//            if (alumno1)
+            if (puntos < 12) {
+                sancion = SancionText.getText();
+            } else if (Objects.equals(ComboSancion.getValue().toString(), "✎ Rellenar a mano")) {
+                sancion = MiniSancionText.getText();
+            } else {
+                sancion = ComboSancion.getValue().toString();
+            }
+            if (parteDAO.insertarParte(alumno1, ProfesorCompartido.getProfeIniciado(), puntiacion, FechaPicker.getValue(), HoraCombo.getValue().toString(), DescripcionText.getText(), sancion)) {
+                AlertUtils.mostrarAcierto("Parte creado");
+                vaciarCampos();
+            } else {
+                AlertUtils.mostrarError("Error al crear el parte");
+            }
         }
     }
 
@@ -86,6 +103,7 @@ public class CrearParteController implements Initializable {
         tipoParte = "Suspensión";
         SancionAMano.setVisible(true);
         SancionComboBox.setVisible(false);
+        puntos = 6;
     }
 
     @FXML
@@ -95,6 +113,7 @@ public class CrearParteController implements Initializable {
         tipoParte = "Expulsión";
         SancionAMano.setVisible(false);
         SancionComboBox.setVisible(true);
+        puntos = 12;
     }
 
     @FXML
@@ -104,35 +123,66 @@ public class CrearParteController implements Initializable {
         tipoParte = "Advertencia";
         SancionAMano.setVisible(true);
         SancionComboBox.setVisible(false);
+        puntos = 1;
     }
 
     @FXML
     public void OnVolverClic(ActionEvent actionEvent) throws IOException {
-        if (Objects.equals(profesorIniciado.getTipo(), "profesor")){
-            controllerProfe = ChangeStage.cambioEscenaProfe("InicioProfesor.fxml", fondoParte);
-            controllerProfe.guardarProfeIniciado(profesorIniciado);
+        if (Objects.equals(ProfesorCompartido.getProfeIniciado().getTipo(), "profesor")) {
+            ChangeStage.cambioEscena("InicioProfesor.fxml", fondoParte);
         } else {
-            controllerJefe = ChangeStage.cambioEscenaJefe("InicioJefeEstudios.fxml", fondoParte);
-            controllerJefe.guardarProfeIniciado(profesorIniciado);
+            ChangeStage.cambioEscena("InicioJefeEstudios.fxml", fondoParte);
         }
     }
 
-    public boolean camposVacios(){
+    public boolean camposVacios() {
+
         if (Objects.equals(NumExpedienteAlumnoText.getText(), "") || Objects.equals(DescripcionText.getText(), "")
-                || HoraCombo.getValue()==null || FechaPicker.getValue()==null){
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setContentText("Todos los campos deben estar rellenos");
-            alerta.show();
+                || HoraCombo.getValue() == null || FechaPicker.getValue() == null || Objects.equals(GrupoText.getText(), "")) {
+            AlertUtils.mostrarError("Todos los campos deben estar rellenos");
             return false;
         }
+
+        if (puntos < 12) {
+            if (Objects.equals(SancionText.getText(), "")) {
+                AlertUtils.mostrarError("Todos los campos deben estar rellenos");
+                return false;
+            }
+        } else {
+            if (ComboSancion.getValue() == null) {
+                AlertUtils.mostrarError("Todos los campos deben estar rellenos");
+                return false;
+            } else if (Objects.equals(ComboSancion.getValue().toString(), "✎ Rellenar a mano") && Objects.equals(MiniSancionText.getText(), "")) {
+                AlertUtils.mostrarError("Todos los campos deben estar rellenos");
+                return false;
+            }
+        }
+
         return true;
     }
 
     public void OnKeyPressed(KeyEvent keyEvent) {
         String teclaPulsada = keyEvent.getCode().toString();
-        if (teclaPulsada.equals("TAB") || teclaPulsada.equals("ENTER")){
+        if (teclaPulsada.equals("TAB") || teclaPulsada.equals("ENTER")) {
+            alumno1 = parteDAO.buscarAlumnoByExp(NumExpedienteAlumnoText.getText());
+            if (alumno1!=null) {
+                grupo1 = alumno1.getId_grupo();
+                GrupoText.setText(grupo1.getNombre_grupo());
+            } else {
+                AlertUtils.mostrarError("Ese alumno no existe");
+            }
+        }
+    }
 
-       }
+    public void vaciarCampos(){
+        NumExpedienteAlumnoText.setText("");
+        GrupoText.setText("");
+        FechaPicker.setValue(null);
+        HoraCombo.setValue(null);
+        DescripcionText.setText("");
+        SancionText.setText("");
+        ComboSancion.setValue(null);
+        MiniSancionText.setText("");
     }
 
     @Override
@@ -147,10 +197,7 @@ public class CrearParteController implements Initializable {
                 RellenarAAmano.setVisible(false);
             }
         });
-    }
 
-    public void guardarProfeIniciado(Profesores Prof1){
-        profesorIniciado = Prof1;
-        NombreProfesor.setText(Prof1.getNombre());
+        NombreProfesor.setText(ProfesorCompartido.getProfeIniciado().getNombre());
     }
 }

@@ -1,7 +1,9 @@
 package application.proyectonavidad.controller;
 
 import application.proyectonavidad.DAO.ProfesorDAO;
+import application.proyectonavidad.Model.ProfesorCompartido;
 import application.proyectonavidad.Model.Profesores;
+import application.proyectonavidad.Utils.AlertUtils;
 import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,21 +29,19 @@ public class InicioSesionController {
 
     Profesores prof1 = new Profesores();
 
-    IniJefController controllerJefe;
-    IniProfController controllerProfe;
-
     @FXML
     void OnIniciarSesionClic(ActionEvent event) throws IOException {
         if (camposVacios()) {
             prof1 = profesorDAO.comprobarProfesor(NumeroAsignadoText.getText(), ContraseniaText.getText());
             if (prof1!=null){
+                ProfesorCompartido.setProfeIniciado(prof1);
                 if (Objects.equals(prof1.getTipo(), "profesor")) {
-                    controllerProfe = ChangeStage.cambioEscenaProfe("InicioProfesor.fxml", InicioFondo);
-                    controllerProfe.guardarProfeIniciado(prof1);
+                    ChangeStage.cambioEscena("InicioProfesor.fxml", InicioFondo);
                 } else {
-                    controllerJefe = ChangeStage.cambioEscenaJefe("InicioJefeEstudios.fxml", InicioFondo);
-                    controllerJefe.guardarProfeIniciado(prof1);
+                    ChangeStage.cambioEscena("InicioJefeEstudios.fxml", InicioFondo);
                 }
+            } else {
+                AlertUtils.mostrarError("Usuario y/o contraseña incorrectos");
             }
         }
     }
