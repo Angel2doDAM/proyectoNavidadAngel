@@ -1,6 +1,6 @@
 package application.proyectonavidad.controller;
 
-import application.proyectonavidad.Utils.AlertUtils;
+import application.proyectonavidad.Model.Profesores;
 import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,6 +62,11 @@ public class CrearParteController implements Initializable {
 
     private int punt_partes = 1;
 
+    Profesores profesorIniciado = new Profesores();
+
+    IniProfController controllerProfe;
+    IniJefController controllerJefe;
+
     private String[] horas={"08:30", "09:25", "10:20", "11:40", "12:35", "13:30", "16:00", "16:55", "17:50", "19:00", "19:55", "20:50"};
     private String[] sanciones={"Incoación de expediente o expediente abreviado", "Reunion con la Comisión de Convivencia", "Obligatorio pedir disculpas a los afectados y reparar los daños causados", "✎ Rellenar a mano"};
 
@@ -103,7 +108,13 @@ public class CrearParteController implements Initializable {
 
     @FXML
     public void OnVolverClic(ActionEvent actionEvent) throws IOException {
-        ChangeStage.cerrarEscena(fondoParte);
+        if (Objects.equals(profesorIniciado.getTipo(), "profesor")){
+            controllerProfe = ChangeStage.cambioEscenaProfe("InicioProfesor.fxml", fondoParte);
+            controllerProfe.guardarProfeIniciado(profesorIniciado);
+        } else {
+            controllerJefe = ChangeStage.cambioEscenaJefe("InicioJefeEstudios.fxml", fondoParte);
+            controllerJefe.guardarProfeIniciado(profesorIniciado);
+        }
     }
 
     public boolean camposVacios(){
@@ -136,5 +147,10 @@ public class CrearParteController implements Initializable {
                 RellenarAAmano.setVisible(false);
             }
         });
+    }
+
+    public void guardarProfeIniciado(Profesores Prof1){
+        profesorIniciado = Prof1;
+        NombreProfesor.setText(Prof1.getNombre());
     }
 }

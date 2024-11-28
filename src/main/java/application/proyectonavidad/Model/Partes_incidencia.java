@@ -58,10 +58,6 @@ public class Partes_incidencia {
     private Alumnos id_alum;
 
     @ManyToOne
-    @JoinColumn(name = "id_grupo", referencedColumnName = "id_grupo")
-    private Grupos id_grupo;
-
-    @ManyToOne
     @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
     private Profesores id_profesor;
 
@@ -84,9 +80,8 @@ public class Partes_incidencia {
     public Partes_incidencia() {
     }
 
-    public Partes_incidencia(Alumnos id_alum, Grupos id_grupo, Profesores id_profesor, Puntuacion_partes punt_partes, String descripcion, String fecha, String hora, String sancion) {
+    public Partes_incidencia(Alumnos id_alum, Profesores id_profesor, Puntuacion_partes punt_partes, String descripcion, String fecha, String hora, String sancion) {
         this.id_alum = id_alum;
-        this.id_grupo = id_grupo;
         this.id_profesor = id_profesor;
         this.punt_partes = punt_partes;
         this.descripcion = descripcion;
@@ -109,14 +104,6 @@ public class Partes_incidencia {
 
     public void setId_alum(Alumnos id_alum) {
         this.id_alum = id_alum;
-    }
-
-    public Grupos getId_grupo() {
-        return id_grupo;
-    }
-
-    public void setId_grupo(Grupos id_grupo) {
-        this.id_grupo = id_grupo;
     }
 
     public Profesores getId_profesor() {
@@ -171,7 +158,6 @@ public class Partes_incidencia {
     public String toString() {
         return "Partes_incidencia{" +
                 "id_alum=" + id_alum +
-                ", id_grupo=" + id_grupo +
                 ", id_profesor=" + id_profesor +
                 ", punt_partes=" + punt_partes +
                 ", descripcion='" + descripcion + '\'' +

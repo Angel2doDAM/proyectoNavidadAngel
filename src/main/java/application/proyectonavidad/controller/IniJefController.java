@@ -1,5 +1,6 @@
 package application.proyectonavidad.controller;
 
+import application.proyectonavidad.Model.Profesores;
 import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,9 +27,14 @@ public class IniJefController {
     @FXML
     private AnchorPane fondoProfe;
 
+    CrearParteController controllerParte;
+
+    Profesores profesorIniciado = new Profesores();
+
     @FXML
     void OnCrearParteClic(MouseEvent event) throws IOException {
-        ChangeStage.crearEscena("CrearParte.fxml");
+        controllerParte = ChangeStage.cambioEscenaParte("CrearParte.fxml", fondoProfe);
+        controllerParte.guardarProfeIniciado(profesorIniciado);
     }
 
     @FXML
@@ -99,5 +105,9 @@ public class IniJefController {
 
     public void cambiarFondoGris(AnchorPane areaGris){
         areaGris.setStyle("-fx-background-color: #E4E4E5;");
+    }
+
+    public void guardarProfeIniciado(Profesores Prof1){
+        profesorIniciado = Prof1;
     }
 }

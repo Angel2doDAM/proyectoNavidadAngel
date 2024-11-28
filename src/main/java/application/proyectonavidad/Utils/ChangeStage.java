@@ -1,6 +1,8 @@
 package application.proyectonavidad.Utils;
 
 import application.proyectonavidad.controller.CrearParteController;
+import application.proyectonavidad.controller.IniJefController;
+import application.proyectonavidad.controller.IniProfController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -28,7 +30,7 @@ public class ChangeStage {
     }
 
     //    Función creada para cambiar de una pestaña a otra de la aplicación, pero esta devuelve el controller para cargar datos
-    /*static public TiendaController cambioEscena2(String fxmlnName, AnchorPane rootPane) throws IOException {
+    static public IniProfController cambioEscenaProfe(String fxmlnName, AnchorPane rootPane) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(R.getUI(fxmlnName));
@@ -40,7 +42,33 @@ public class ChangeStage {
         currentStage.close();
         return loader.getController();
 
-    }*/
+    }
+    static public IniJefController cambioEscenaJefe(String fxmlnName, AnchorPane rootPane) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(R.getUI(fxmlnName));
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(loader.load()));
+        newStage.sizeToScene();
+        newStage.show();
+        Stage currentStage = (Stage) rootPane.getScene().getWindow();
+        currentStage.close();
+        return loader.getController();
+
+    }
+    static public CrearParteController cambioEscenaParte(String fxmlnName, AnchorPane rootPane) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(R.getUI(fxmlnName));
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(loader.load()));
+        newStage.sizeToScene();
+        newStage.show();
+        Stage currentStage = (Stage) rootPane.getScene().getWindow();
+        currentStage.close();
+        return loader.getController();
+
+    }
 
 //    Función para abrir una escena sin cerrar la anterior
     static public CrearParteController crearEscena(String fxmlnName) throws IOException {

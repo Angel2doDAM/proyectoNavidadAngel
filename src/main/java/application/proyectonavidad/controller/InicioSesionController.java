@@ -27,15 +27,20 @@ public class InicioSesionController {
 
     Profesores prof1 = new Profesores();
 
+    IniJefController controllerJefe;
+    IniProfController controllerProfe;
+
     @FXML
     void OnIniciarSesionClic(ActionEvent event) throws IOException {
         if (camposVacios()) {
             prof1 = profesorDAO.comprobarProfesor(NumeroAsignadoText.getText(), ContraseniaText.getText());
             if (prof1!=null){
                 if (Objects.equals(prof1.getTipo(), "profesor")) {
-                    ChangeStage.cambioEscena("InicioProfesor.fxml", InicioFondo);
+                    controllerProfe = ChangeStage.cambioEscenaProfe("InicioProfesor.fxml", InicioFondo);
+                    controllerProfe.guardarProfeIniciado(prof1);
                 } else {
-                    ChangeStage.cambioEscena("InicioJefeEstudios.fxml", InicioFondo);
+                    controllerJefe = ChangeStage.cambioEscenaJefe("InicioJefeEstudios.fxml", InicioFondo);
+                    controllerJefe.guardarProfeIniciado(prof1);
                 }
             }
         }
