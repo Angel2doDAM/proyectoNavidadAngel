@@ -191,7 +191,7 @@ public class CrearParteController implements Initializable {
         ComboSancion.getItems().addAll(sanciones);
 
         ComboSancion.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (Objects.equals(newValue.toString(), "✎ Rellenar a mano")) {
+            if (newValue != null && Objects.equals(newValue.toString(), "✎ Rellenar a mano")) {
                 RellenarAAmano.setVisible(true);
             } else {
                 RellenarAAmano.setVisible(false);
