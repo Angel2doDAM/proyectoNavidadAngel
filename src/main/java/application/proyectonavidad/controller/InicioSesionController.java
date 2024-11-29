@@ -41,7 +41,7 @@ public class InicioSesionController {
                     ChangeStage.cambioEscena("InicioJefeEstudios.fxml", InicioFondo);
                 }
             } else {
-                AlertUtils.mostrarError("Usuario y/o contraseña incorrectos");
+                AlertUtils.mostrarError("Usuario o contraseña incorrectos");
             }
         }
     }

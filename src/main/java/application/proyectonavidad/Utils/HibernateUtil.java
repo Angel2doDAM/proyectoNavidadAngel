@@ -15,7 +15,6 @@ public class HibernateUtil {
         cfg.addAnnotatedClass(Grupos.class);
         cfg.addAnnotatedClass(Partes_incidencia.class);
         cfg.addAnnotatedClass(Profesores.class);
-        cfg.addAnnotatedClass(Puntuacion_partes.class);
         factory = cfg.buildSessionFactory();
     }
 
