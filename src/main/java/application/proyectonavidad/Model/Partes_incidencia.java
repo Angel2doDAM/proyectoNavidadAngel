@@ -44,6 +44,8 @@ ALTER TABLE `gestionpartes`.`partes_incidencia`
  */
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "partes_incidencia")
@@ -58,12 +60,12 @@ public class Partes_incidencia {
     private Alumnos id_alum;
 
     @ManyToOne
-    @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
-    private Profesores id_profesor;
+    @JoinColumn(name = "id_punt_partes", referencedColumnName = "id_punt_partes")
+    private Puntuacion_partes id_punt_partes;
 
     @ManyToOne
-    @JoinColumn(name = "id_punt_partes", referencedColumnName = "id_punt_partes")
-    private Puntuacion_partes punt_partes;
+    @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
+    private Profesores id_profesor;
 
     @Column(name = "descripcion")
     private String descripcion;
@@ -80,10 +82,10 @@ public class Partes_incidencia {
     public Partes_incidencia() {
     }
 
-    public Partes_incidencia(Alumnos id_alum, Profesores id_profesor, Puntuacion_partes punt_partes, String descripcion, String fecha, String hora, String sancion) {
+    public Partes_incidencia(Alumnos id_alum, Profesores id_profesor, Puntuacion_partes id_punt_partes, String descripcion, String fecha, String hora, String sancion) {
         this.id_alum = id_alum;
         this.id_profesor = id_profesor;
-        this.punt_partes = punt_partes;
+        this.id_punt_partes = id_punt_partes;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
@@ -114,12 +116,12 @@ public class Partes_incidencia {
         this.id_profesor = id_profesor;
     }
 
-    public Puntuacion_partes getPunt_partes() {
-        return punt_partes;
+    public Puntuacion_partes getId_punt_partes() {
+        return id_punt_partes;
     }
 
-    public void setPunt_partes(Puntuacion_partes punt_partes) {
-        this.punt_partes = punt_partes;
+    public void setId_punt_partes(Puntuacion_partes id_punt_partes) {
+        this.id_punt_partes = id_punt_partes;
     }
 
     public String getDescripcion() {
@@ -159,7 +161,7 @@ public class Partes_incidencia {
         return "Partes_incidencia{" +
                 "id_alum=" + id_alum +
                 ", id_profesor=" + id_profesor +
-                ", punt_partes=" + punt_partes +
+                ", punt_partes=" + id_punt_partes +
                 ", descripcion='" + descripcion + '\'' +
                 ", fecha='" + fecha + '\'' +
                 ", hora='" + hora + '\'' +
