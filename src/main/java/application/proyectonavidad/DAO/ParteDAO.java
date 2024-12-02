@@ -9,7 +9,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ParteDAO {
 
@@ -38,7 +42,7 @@ public class ParteDAO {
     }
 
     public boolean insertarParte(Alumnos alumno, Profesores profesor, int puntos, LocalDate fecha, String hora, String descripcion, String sancion) {
-        Partes_incidencia parte = new Partes_incidencia(alumno, profesor, puntos, descripcion, fecha.toString(), hora, sancion);
+        Partes_incidencia parte = new Partes_incidencia(alumno, profesor, puntos, descripcion, fecha, hora, sancion);
         try {
             session.beginTransaction();
             session.save(parte);
@@ -93,6 +97,43 @@ public class ParteDAO {
         }
 
         return partesList != null ? partesList.toArray(new Partes_incidencia[0]) : new Partes_incidencia[0];
+    }
+
+    public List<Partes_incidencia> listarPartes() {
+        List<Partes_incidencia> partesIncidencias = new ArrayList<>();
+        try {
+            session.beginTransaction();
+            partesIncidencias = session.createQuery("from Partes_incidencia", Partes_incidencia.class)
+                    .stream().toList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.clear();
+        }
+        return partesIncidencias;
+    }
+
+    public List<Partes_incidencia> buscarPorFecha(LocalDate fechaEmpieza, LocalDate fechaAcaba) {
+        List<Partes_incidencia> listaPartes = listarPartes();
+        if (fechaEmpieza == null && fechaAcaba != null) {
+            listaPartes = listaPartes.stream()
+                    .filter(partesIncidencia ->
+                            partesIncidencia.getFecha().isBefore(fechaAcaba))
+                    .toList();
+        } else if (fechaAcaba == null && fechaEmpieza != null) {
+            listaPartes = listaPartes.stream()
+                    .filter(partesIncidencia ->
+                            partesIncidencia.getFecha().isAfter(fechaEmpieza))
+                    .toList();
+        } else if (fechaAcaba != null && fechaEmpieza != null) {
+            listaPartes = listaPartes.stream()
+                    .filter(partesIncidencia ->
+                            partesIncidencia.getFecha().isAfter(fechaEmpieza) &&
+                                    partesIncidencia.getFecha().isBefore(fechaAcaba))
+                    .toList();
+        }
+        return listaPartes;
     }
 
 }

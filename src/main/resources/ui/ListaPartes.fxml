@@ -36,8 +36,8 @@
             <TextField fx:id="BuscarNumeroExpediente" layoutX="32.0" layoutY="66.0" onKeyPressed="#OnNumeroPressed" prefHeight="25.0" prefWidth="566.0" promptText="Buscar por Número de expediente" />
             <Button layoutX="547.0" layoutY="66.0" mnemonicParsing="false" onAction="#OnBuscarNumeroClic" style="-fx-background-color: #198754;" text="Buscar" textFill="WHITE" />
             <Button layoutX="494.0" layoutY="101.0" mnemonicParsing="false" onAction="#OnBuscarFechaClic" style="-fx-background-color: #198754;" text="Buscar por Fecha" textFill="WHITE" />
-            <DatePicker fx:id="FechaInicio" layoutX="32.0" layoutY="101.0" prefHeight="25.0" prefWidth="231.0" promptText="Fecha inicio" />
-            <DatePicker fx:id="FechaFinal" layoutX="263.0" layoutY="101.0" prefHeight="25.0" prefWidth="231.0" promptText="Fecha final" />
+            <DatePicker fx:id="FechaInicio" layoutX="32.0" layoutY="101.0" onKeyPressed="#OnInicioPressed" prefHeight="25.0" prefWidth="231.0" promptText="Fecha inicio" />
+            <DatePicker fx:id="FechaFinal" layoutX="263.0" layoutY="101.0" onKeyPressed="#OnFinalPressed" prefHeight="25.0" prefWidth="231.0" promptText="Fecha final" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="69.0" layoutY="191.0" prefHeight="374.0" prefWidth="812.0" style="-fx-background-color: #72CAE8;">

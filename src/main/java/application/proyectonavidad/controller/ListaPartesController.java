@@ -3,6 +3,7 @@ package application.proyectonavidad.controller;
 import application.proyectonavidad.DAO.ParteDAO;
 import application.proyectonavidad.Model.Alumnos;
 import application.proyectonavidad.Model.Partes_incidencia;
+import application.proyectonavidad.Utils.AlertUtils;
 import application.proyectonavidad.Utils.ChangeStage;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -89,7 +90,7 @@ public class ListaPartesController {
 
     @FXML
     void OnBuscarFechaClic(ActionEvent event) {
-        // Implementar la lógica para buscar por fecha
+        BuscarPorFecha();
     }
 
     @FXML
@@ -108,6 +109,13 @@ public class ListaPartesController {
         vaciarCampos();
     }
 
+    public void BuscarPorFecha(){
+        partesList = FXCollections.observableArrayList(parteDAO.buscarPorFecha(FechaInicio.getValue(), FechaFinal.getValue()));
+        AlertUtils.mostrarAcierto(partesList.toString());
+        LaTabla.setItems(partesList);
+//        vaciarCampos();
+    }
+
     public void vaciarCampos(){
         BuscarNumeroExpediente.setText("");
         FechaInicio.setValue(null);
@@ -124,6 +132,23 @@ public class ListaPartesController {
     }
 
     public void OnNumeroPressed(KeyEvent keyEvent) {
-        BuscarPorNumero();
+        String teclaPulsada = keyEvent.getCode().toString();
+        if (teclaPulsada.equals("ENTER")) {
+            BuscarPorNumero();
+        }
+    }
+
+    public void OnInicioPressed(KeyEvent keyEvent) {
+        String teclaPulsada = keyEvent.getCode().toString();
+        if (teclaPulsada.equals("ENTER")) {
+            BuscarPorFecha();
+        }
+    }
+
+    public void OnFinalPressed(KeyEvent keyEvent) {
+        String teclaPulsada = keyEvent.getCode().toString();
+        if (teclaPulsada.equals("ENTER")) {
+            BuscarPorFecha();
+        }
     }
 }

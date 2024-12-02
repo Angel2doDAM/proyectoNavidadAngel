@@ -53,7 +53,7 @@ public class VistaParteController {
         NombreAlumnoText.setText(parte1.getId_alum().toString());
         GrupoText.setText(parte1.getId_alum().toString());
         NombreProfeText.setText(parte1.getId_profesor().toString());
-        FechaText.setText(parte1.getFecha());
+        FechaText.setText(parte1.getFecha().toString());
         HoraText.setText(parte1.getHora());
         DescripcionText.setText(parte1.getDescripcion());
         SancionText.setText(parte1.getSancion());
