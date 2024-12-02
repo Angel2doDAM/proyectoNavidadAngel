@@ -90,7 +90,9 @@ public class ListaPartesController {
 
     @FXML
     void OnBuscarFechaClic(ActionEvent event) {
-        BuscarPorFecha();
+        partesList = FXCollections.observableArrayList(parteDAO.buscarPorFecha(FechaInicio.getValue(), FechaFinal.getValue()));
+        LaTabla.setItems(partesList);
+//        vaciarCampos();
     }
 
     @FXML
@@ -107,13 +109,6 @@ public class ListaPartesController {
         }
         cargarPartes();
         vaciarCampos();
-    }
-
-    public void BuscarPorFecha(){
-        partesList = FXCollections.observableArrayList(parteDAO.buscarPorFecha(FechaInicio.getValue(), FechaFinal.getValue()));
-        AlertUtils.mostrarAcierto(partesList.toString());
-        LaTabla.setItems(partesList);
-//        vaciarCampos();
     }
 
     public void vaciarCampos(){
@@ -138,17 +133,4 @@ public class ListaPartesController {
         }
     }
 
-    public void OnInicioPressed(KeyEvent keyEvent) {
-        String teclaPulsada = keyEvent.getCode().toString();
-        if (teclaPulsada.equals("ENTER")) {
-            BuscarPorFecha();
-        }
-    }
-
-    public void OnFinalPressed(KeyEvent keyEvent) {
-        String teclaPulsada = keyEvent.getCode().toString();
-        if (teclaPulsada.equals("ENTER")) {
-            BuscarPorFecha();
-        }
-    }
 }
