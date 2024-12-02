@@ -15,6 +15,5 @@
         <mapping class="application.proyectonavidad.Model.Grupos"/>
         <mapping class="application.proyectonavidad.Model.Partes_incidencia"/>
         <mapping class="application.proyectonavidad.Model.Profesores"/>
-        <mapping class="application.proyectonavidad.Model.Puntuacion_partes"/>
     </session-factory>
 </hibernate-configuration>

@@ -59,9 +59,8 @@ public class Partes_incidencia {
     @JoinColumn(name = "id_alum", referencedColumnName = "id_alum")
     private Alumnos id_alum;
 
-    @ManyToOne
-    @JoinColumn(name = "id_punt_partes", referencedColumnName = "id_punt_partes")
-    private Puntuacion_partes id_punt_partes;
+    @Column(name = "id_punt_partes")
+    private int id_punt_partes;
 
     @ManyToOne
     @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
@@ -82,7 +81,7 @@ public class Partes_incidencia {
     public Partes_incidencia() {
     }
 
-    public Partes_incidencia(Alumnos id_alum, Profesores id_profesor, Puntuacion_partes id_punt_partes, String descripcion, String fecha, String hora, String sancion) {
+    public Partes_incidencia(Alumnos id_alum, Profesores id_profesor, int id_punt_partes, String descripcion, String fecha, String hora, String sancion) {
         this.id_alum = id_alum;
         this.id_profesor = id_profesor;
         this.id_punt_partes = id_punt_partes;
@@ -116,11 +115,11 @@ public class Partes_incidencia {
         this.id_profesor = id_profesor;
     }
 
-    public Puntuacion_partes getId_punt_partes() {
+    public int getId_punt_partes() {
         return id_punt_partes;
     }
 
-    public void setId_punt_partes(Puntuacion_partes id_punt_partes) {
+    public void setId_punt_partes(int id_punt_partes) {
         this.id_punt_partes = id_punt_partes;
     }
 

@@ -77,7 +77,6 @@ public class CrearParteController implements Initializable {
     @FXML
     void OnCrearClic(ActionEvent event) throws IOException {
         if (camposVacios()) {
-            Puntuacion_partes puntiacion = parteDAO.buscarPuntuacionByPuntos(puntos);
             String sancion = "";
 //            if (alumno1)
             if (puntos < 12) {
@@ -87,7 +86,7 @@ public class CrearParteController implements Initializable {
             } else {
                 sancion = ComboSancion.getValue().toString();
             }
-            if (parteDAO.insertarParte(alumno1, ProfesorCompartido.getProfeIniciado(), puntiacion, FechaPicker.getValue(), HoraCombo.getValue().toString(), DescripcionText.getText(), sancion)) {
+            if (parteDAO.insertarParte(alumno1, ProfesorCompartido.getProfeIniciado(), puntos, FechaPicker.getValue(), HoraCombo.getValue().toString(), DescripcionText.getText(), sancion)) {
                 AlertUtils.mostrarAcierto("Parte creado");
                 vaciarCampos();
             } else {
