@@ -28,7 +28,8 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="NumeroAsignadoText" layoutX="24.0" layoutY="124.0" prefHeight="35.0" prefWidth="348.0" promptText="Introduce tu número asignado" />
+            <TextField fx:id="NumeroAsignadoText" layoutX="24.0" layoutY="124.0" onKeyPressed="#OnKeyPressedNumero" prefHeight="35.0" prefWidth="348.0" promptText="Introduce tu número asignado" />
+            <PasswordField fx:id="ContraseniaText" layoutX="26.0" layoutY="202.0" onKeyPressed="#OnKeyPressedContra" prefHeight="35.0" prefWidth="348.0" promptText="Introduce tu contraseña" />
             <Label layoutX="26.0" layoutY="171.0" text="Contraseña:">
                <font>
                   <Font size="17.0" />
@@ -39,7 +40,6 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <PasswordField fx:id="ContraseniaText" layoutX="26.0" layoutY="202.0" prefHeight="35.0" prefWidth="348.0" promptText="Introduce tu contraseña" />
          </children>
       </AnchorPane>
    </children>

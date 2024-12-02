@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -31,6 +32,10 @@ public class InicioSesionController {
 
     @FXML
     void OnIniciarSesionClic(ActionEvent event) throws IOException {
+        acceso();
+    }
+
+    public void acceso() throws IOException {
         if (camposVacios()) {
             prof1 = profesorDAO.comprobarProfesor(NumeroAsignadoText.getText(), ContraseniaText.getText());
             if (prof1!=null){
@@ -56,4 +61,17 @@ public class InicioSesionController {
         return true;
     }
 
+    public void OnKeyPressedNumero(javafx.scene.input.KeyEvent keyEvent) throws IOException {
+        String teclaPulsada = keyEvent.getCode().toString();
+        if (teclaPulsada.equals("ENTER")) {
+            acceso();
+        }
+    }
+
+    public void OnKeyPressedContra(javafx.scene.input.KeyEvent keyEvent) throws IOException {
+        String teclaPulsada = keyEvent.getCode().toString();
+        if (teclaPulsada.equals("ENTER")) {
+            acceso();
+        }
+    }
 }

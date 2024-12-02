@@ -4,6 +4,7 @@ import application.proyectonavidad.DAO.ParteDAO;
 import application.proyectonavidad.Model.Alumnos;
 import application.proyectonavidad.Model.Partes_incidencia;
 import application.proyectonavidad.Utils.ChangeStage;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -67,10 +69,10 @@ public class ListaPartesController {
     @FXML
     void initialize() {
         // Inicializa las columnas de la tabla
-        ExpedienteColumn.setCellValueFactory(new PropertyValueFactory<>("id_alum")); // Cambia esto para que devuelva el número de expediente
-        NombreAlumnoColumn.setCellValueFactory(new PropertyValueFactory<>("id_alum")); // Cambia esto para que devuelva el nombre del alumno
-        GrupoColumn.setCellValueFactory(new PropertyValueFactory<>("id_alum")); // Cambia esto para que devuelva el grupo
-        ProfesorColumn.setCellValueFactory(new PropertyValueFactory<>("id_profesor")); // Cambia esto para que devuelva el nombre del profesor
+        ExpedienteColumn.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getId_alum().getNumero_expediente()));
+        NombreAlumnoColumn.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getId_alum().getNombre_alum()));
+        GrupoColumn.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getId_alum().getId_grupo().getNombre_grupo()));
+        ProfesorColumn.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getId_profesor().getNombre()));
         FechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         DescripcionColumn.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         SancionColumn.setCellValueFactory(new PropertyValueFactory<>("sancion"));
@@ -92,6 +94,10 @@ public class ListaPartesController {
 
     @FXML
     void OnBuscarNumeroClic(ActionEvent event) {
+        BuscarPorNumero();
+    }
+
+    public void BuscarPorNumero(){
         if (Objects.equals(BuscarNumeroExpediente.getText(), "")){
             partes = parteDAO.buscarPartes();
         } else {
@@ -115,5 +121,9 @@ public class ListaPartesController {
 
     public void OnMouseClic(javafx.scene.input.MouseEvent mouseEvent) {
         parte = (Partes_incidencia) LaTabla.getSelectionModel().getSelectedItem();
+    }
+
+    public void OnNumeroPressed(KeyEvent keyEvent) {
+        BuscarPorNumero();
     }
 }
