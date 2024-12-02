@@ -10,10 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,7 +19,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Objects;
 
-public class ListaPartesController {
+public class ListaPartesController extends SuperController{
 
     @FXML
     private TextField BuscarNumeroExpediente;
@@ -67,6 +64,8 @@ public class ListaPartesController {
 
     private ObservableList<Partes_incidencia> partesList;
 
+    VistaParteController controller;
+
     @FXML
     void initialize() {
         // Inicializa las columnas de la tabla
@@ -81,6 +80,26 @@ public class ListaPartesController {
         // Cargar los partes en la tabla
         partes = parteDAO.buscarPartes();
         cargarPartes();
+
+        // Establecer la fábrica de filas
+        LaTabla.setRowFactory(tv -> new TableRow<Partes_incidencia>() {
+            @Override
+            protected void updateItem(Partes_incidencia parte1, boolean empty) {
+                super.updateItem(parte1, empty);
+                if (empty || parte1 == null) {
+                    setStyle(""); // Restablecer el estilo si la fila está vacía
+                } else {
+                    // Cambiar el color según las condiciones
+                    if (parte1.getId_punt_partes()==1) {
+                        setStyle("-fx-background-color: #befc77;");
+                    } else if (parte1.getId_punt_partes()==6) {
+                        setStyle("-fx-background-color: #fa9746;");
+                    } else {
+                        setStyle("-fx-background-color: #ff616c;");
+                    }
+                }
+            }
+        });
     }
 
     private void cargarPartes() {
@@ -122,8 +141,10 @@ public class ListaPartesController {
         ChangeStage.cambioEscena("InicioJefeEstudios.fxml", fondoParte);
     }
 
-    public void OnMouseClic(javafx.scene.input.MouseEvent mouseEvent) {
+    public void OnMouseClic(javafx.scene.input.MouseEvent mouseEvent) throws IOException {
         parte = (Partes_incidencia) LaTabla.getSelectionModel().getSelectedItem();
+        controller = ChangeStage.cambioEscenaParte("VistaParte.fxml", fondoParte);
+        controller.rellenarParte(parte);
     }
 
     public void OnNumeroPressed(KeyEvent keyEvent) {

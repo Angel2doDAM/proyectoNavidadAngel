@@ -1,7 +1,5 @@
 package application.proyectonavidad.controller;
 
-import application.proyectonavidad.Model.ProfesorCompartido;
-import application.proyectonavidad.Model.Profesores;
 import application.proyectonavidad.Utils.ChangeStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class IniProfController {
+public class IniProfController extends SuperController{
 
     @FXML
     private AnchorPane AreaCrear;
@@ -35,6 +33,7 @@ public class IniProfController {
 
     @FXML
     public void OnVolverClic(ActionEvent actionEvent) throws IOException {
+        setProfesor(null);
         ChangeStage.cambioEscena("InicioSesion.fxml", fondoProfe);
     }
 

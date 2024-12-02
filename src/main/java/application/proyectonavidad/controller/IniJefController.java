@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class IniJefController {
+public class IniJefController extends SuperController{
 
     @FXML
     private AnchorPane CrearPartePane;
@@ -91,6 +91,7 @@ public class IniJefController {
 
     @FXML
     public void OnVolverClic(ActionEvent actionEvent) throws IOException {
+        setProfesor(null);
         ChangeStage.cambioEscena("InicioSesion.fxml", fondoProfe);
     }
 

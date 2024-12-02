@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class CrearParteController implements Initializable {
+public class CrearParteController extends SuperController implements Initializable {
 
     @FXML
     private AnchorPane fondoParte;
@@ -86,7 +86,7 @@ public class CrearParteController implements Initializable {
             } else {
                 sancion = ComboSancion.getValue().toString();
             }
-            if (parteDAO.insertarParte(alumno1, ProfesorCompartido.getProfeIniciado(), puntos, FechaPicker.getValue(), HoraCombo.getValue().toString(), DescripcionText.getText(), sancion)) {
+            if (parteDAO.insertarParte(alumno1, getProfesor(), puntos, FechaPicker.getValue(), HoraCombo.getValue().toString(), DescripcionText.getText(), sancion)) {
                 AlertUtils.mostrarAcierto("Parte creado");
                 vaciarCampos();
             } else {
@@ -127,7 +127,7 @@ public class CrearParteController implements Initializable {
 
     @FXML
     public void OnVolverClic(ActionEvent actionEvent) throws IOException {
-        if (Objects.equals(ProfesorCompartido.getProfeIniciado().getTipo(), "profesor")) {
+        if (Objects.equals(getProfesor().getTipo(), "profesor")) {
             ChangeStage.cambioEscena("InicioProfesor.fxml", fondoParte);
         } else {
             ChangeStage.cambioEscena("InicioJefeEstudios.fxml", fondoParte);
@@ -197,6 +197,6 @@ public class CrearParteController implements Initializable {
             }
         });
 
-        NombreProfesor.setText(ProfesorCompartido.getProfeIniciado().getNombre());
+        NombreProfesor.setText(getProfesor().getNombre());
     }
 }

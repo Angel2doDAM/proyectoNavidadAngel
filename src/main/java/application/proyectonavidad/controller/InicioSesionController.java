@@ -1,7 +1,6 @@
 package application.proyectonavidad.controller;
 
 import application.proyectonavidad.DAO.ProfesorDAO;
-import application.proyectonavidad.Model.ProfesorCompartido;
 import application.proyectonavidad.Model.Profesores;
 import application.proyectonavidad.Utils.AlertUtils;
 import application.proyectonavidad.Utils.ChangeStage;
@@ -11,11 +10,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Objects;
 
-public class InicioSesionController {
+public class InicioSesionController extends SuperController{
 
     @FXML
     private TextField ContraseniaText;
@@ -39,7 +37,7 @@ public class InicioSesionController {
         if (camposVacios()) {
             prof1 = profesorDAO.comprobarProfesor(NumeroAsignadoText.getText(), ContraseniaText.getText());
             if (prof1!=null){
-                ProfesorCompartido.setProfeIniciado(prof1);
+                setProfesor(prof1);
                 if (Objects.equals(prof1.getTipo(), "profesor")) {
                     ChangeStage.cambioEscena("InicioProfesor.fxml", InicioFondo);
                 } else {
