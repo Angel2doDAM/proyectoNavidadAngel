@@ -38,10 +38,8 @@ public class IniJefController extends SuperController{
     }
 
     @FXML
-    void OnListaAlumnosClic(MouseEvent event) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setContentText("Pantalla Listar Alumnos");
-        alerta.show();
+    void OnListaAlumnosClic(MouseEvent event) throws IOException {
+        ChangeStage.cambioEscena("ListaAlumnos.fxml", fondoProfe);
     }
 
     @FXML
