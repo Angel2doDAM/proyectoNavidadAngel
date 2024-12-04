@@ -82,7 +82,6 @@ public class ListaPartesController extends SuperController{
         DescripcionColumn.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         SancionColumn.setCellValueFactory(new PropertyValueFactory<>("sancion"));
         partes = parteDAO.buscarPartes();
-        calcularFilas();
         cargarPartes();
 
         // Establecer la fábrica de filas
@@ -105,20 +104,6 @@ public class ListaPartesController extends SuperController{
             }
         });
     }
-
-    public void calcularFilas(){
-        int paginas=1;
-
-        if(partes.length%filaporPagina()==0){
-            paginas= partes.length/filaporPagina();
-        } else if (partes.length>filaporPagina()) {
-            paginas= partes.length/filaporPagina()+1;
-        }
-        pagination.setPageCount(paginas);
-        pagination.setCurrentPageIndex(0);
-        pagination.setPageFactory(this::crearPaginas);
-    }
-
     public int filaporPagina(){
         return 7;
     }
@@ -132,8 +117,16 @@ public class ListaPartesController extends SuperController{
     }
 
     private void cargarPartes() {
-        partesList = FXCollections.observableArrayList(partes);
-        LaTabla.setItems(partesList);
+        int paginas=1;
+
+        if(partes.length%filaporPagina()==0){
+            paginas= partes.length/filaporPagina();
+        } else if (partes.length>filaporPagina()) {
+            paginas= partes.length/filaporPagina()+1;
+        }
+        pagination.setPageCount(paginas);
+        pagination.setCurrentPageIndex(0);
+        pagination.setPageFactory(this::crearPaginas);
     }
 
     @FXML
