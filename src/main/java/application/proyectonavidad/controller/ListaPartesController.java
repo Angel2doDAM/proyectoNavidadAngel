@@ -10,16 +10,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ListaPartesController extends SuperController{
+
+    public Pagination pagination;
 
     @FXML
     private TextField BuscarNumeroExpediente;
@@ -76,9 +81,8 @@ public class ListaPartesController extends SuperController{
         FechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         DescripcionColumn.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         SancionColumn.setCellValueFactory(new PropertyValueFactory<>("sancion"));
-
-        // Cargar los partes en la tabla
         partes = parteDAO.buscarPartes();
+        calcularFilas();
         cargarPartes();
 
         // Establecer la fábrica de filas
@@ -102,6 +106,31 @@ public class ListaPartesController extends SuperController{
         });
     }
 
+    public void calcularFilas(){
+        int paginas=1;
+
+        if(partes.length%filaporPagina()==0){
+            paginas= partes.length/filaporPagina();
+        } else if (partes.length>filaporPagina()) {
+            paginas= partes.length/filaporPagina()+1;
+        }
+        pagination.setPageCount(paginas);
+        pagination.setCurrentPageIndex(0);
+        pagination.setPageFactory(this::crearPaginas);
+    }
+
+    public int filaporPagina(){
+        return 7;
+    }
+
+    private Node crearPaginas(int pageIndex){
+        int fromIndex=pageIndex*filaporPagina();
+        int toIndex=Math.min(fromIndex+filaporPagina(),partes.length);
+        LaTabla.setItems(FXCollections.observableList(Arrays.stream(partes).toList().subList(fromIndex,toIndex)));
+
+        return new BorderPane(LaTabla);
+    }
+
     private void cargarPartes() {
         partesList = FXCollections.observableArrayList(partes);
         LaTabla.setItems(partesList);
@@ -109,9 +138,9 @@ public class ListaPartesController extends SuperController{
 
     @FXML
     void OnBuscarFechaClic(ActionEvent event) {
-        partesList = FXCollections.observableArrayList(parteDAO.buscarPorFecha(FechaInicio.getValue(), FechaFinal.getValue()));
-        LaTabla.setItems(partesList);
-//        vaciarCampos();
+        partes = parteDAO.buscarPorFecha(FechaInicio.getValue(), FechaFinal.getValue());
+        calcularFilas();
+        cargarPartes();
     }
 
     @FXML
@@ -126,6 +155,7 @@ public class ListaPartesController extends SuperController{
             alumno = parteDAO.buscarAlumnoByExp(BuscarNumeroExpediente.getText());
             partes = parteDAO.buscarPartesPorId(alumno);
         }
+        calcularFilas();
         cargarPartes();
         vaciarCampos();
     }
@@ -144,7 +174,7 @@ public class ListaPartesController extends SuperController{
     public void OnMouseClic(javafx.scene.input.MouseEvent mouseEvent) throws IOException {
         parte = (Partes_incidencia) LaTabla.getSelectionModel().getSelectedItem();
         controller = ChangeStage.cambioEscenaParte("VistaParte.fxml", fondoParte);
-        controller.rellenarParte(parte);
+        controller.cargarParte(parte);
     }
 
     public void OnNumeroPressed(KeyEvent keyEvent) {

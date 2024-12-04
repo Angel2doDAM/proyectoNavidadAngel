@@ -139,7 +139,7 @@
             <Label fx:id="SancionText" alignment="TOP_LEFT" layoutX="14.0" layoutY="7.0" prefHeight="172.0" prefWidth="492.0" text="Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar, Hola muuuuuuuucho mucho mucho mucho texto sin sentido alguno solo para rellenar" wrapText="true" />
          </children>
       </Pane>
-      <HBox layoutX="160.0" layoutY="763.0" prefHeight="25.0" prefWidth="283.0">
+      <HBox layoutX="171.0" layoutY="764.0" prefHeight="25.0" prefWidth="283.0">
          <children>
             <Label text="En Valladolid a ">
                <font>
@@ -183,7 +183,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <HBox layoutX="205.0" layoutY="800.0" prefHeight="25.0" prefWidth="227.0">
+      <HBox layoutX="188.0" layoutY="798.0" prefHeight="25.0" prefWidth="227.0">
          <children>
             <Label text="El profesor ">
                <font>
@@ -197,5 +197,15 @@
             </Label>
          </children>
       </HBox>
+      <Button layoutX="462.0" layoutY="797.0" mnemonicParsing="false" onAction="#OnEliminarClic" style="-fx-background-color: #ff1744; -fx-border-color: #b50000; -fx-border-radius: 5; -fx-background-radius: 5;" text="Eliminar Parte" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="475.0" layoutY="763.0" mnemonicParsing="false" onAction="#OnEditarClic" style="-fx-background-color: #1a8ae5; -fx-border-color: #0747a1; -fx-border-radius: 5; -fx-background-radius: 5;" text="Editar Parte" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

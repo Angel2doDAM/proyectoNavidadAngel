@@ -1,5 +1,6 @@
 package application.proyectonavidad.controller;
 
+import application.proyectonavidad.DAO.ParteDAO;
 import application.proyectonavidad.DAO.ProfesorDAO;
 import application.proyectonavidad.Model.Partes_incidencia;
 import application.proyectonavidad.Utils.ChangeStage;
@@ -55,9 +56,17 @@ public class VistaParteController extends SuperController{
     @FXML
     private Label TituloParte;
 
+    ParteDAO parteDAO = new ParteDAO();
+
     ProfesorDAO profesorDAO = new ProfesorDAO();
 
-    public void rellenarParte(Partes_incidencia parte1){
+    Partes_incidencia parte1;
+
+    public void cargarParte(Partes_incidencia parte){
+        parte1 = parte;
+    }
+
+    public void rellenarParte(){
         NombreAlumnoText.setText(parte1.getId_alum().getNombre_alum());
         GrupoText.setText(parte1.getId_alum().getId_grupo().getNombre_grupo());
         NombreProfeText.setText(parte1.getId_profesor().getNombre());
@@ -86,5 +95,13 @@ public class VistaParteController extends SuperController{
 
     public void OnVolverClic(ActionEvent actionEvent) throws IOException {
         ChangeStage.cambioEscena("ListaPartes.fxml", FondoParte);
+    }
+
+    public void OnEliminarClic(ActionEvent actionEvent) throws IOException {
+        parteDAO.eliminarParte(parte1);
+        ChangeStage.cambioEscena("ListaPartes.fxml", FondoParte);
+    }
+
+    public void OnEditarClic(ActionEvent actionEvent) {
     }
 }

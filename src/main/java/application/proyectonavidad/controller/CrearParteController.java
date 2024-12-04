@@ -60,11 +60,18 @@ public class CrearParteController extends SuperController implements Initializab
     @FXML
     private DatePicker FechaPicker;
 
+    @FXML
+    private Button CrearButton;
+
+    @FXML
+    private Button EditarButton;
+
     private String tipoParte = "Advertencia";
 
     private int punt_partes = 1;
 
     ParteDAO parteDAO = new ParteDAO();
+    Boolean editar = false;
 
     private String[] horas = {"08:30", "09:25", "10:20", "11:40", "12:35", "13:30", "16:00", "16:55", "17:50", "19:00", "19:55", "20:50"};
     private String[] sanciones = {"Incoación de expediente o expediente abreviado", "Reunion con la Comisión de Convivencia", "Obligatorio pedir disculpas a los afectados y reparar los daños causados", "✎ Rellenar a mano"};
@@ -197,6 +204,14 @@ public class CrearParteController extends SuperController implements Initializab
             }
         });
 
+        if (editar){
+            CrearButton.setVisible(false);
+            EditarButton.setVisible(true);
+        }
+
         NombreProfesor.setText(getProfesor().getNombre());
+    }
+
+    public void OnEditarClic(ActionEvent actionEvent) {
     }
 }

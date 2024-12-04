@@ -114,7 +114,7 @@ public class ParteDAO {
         return partesIncidencias;
     }
 
-    public List<Partes_incidencia> buscarPorFecha(LocalDate fechaEmpieza, LocalDate fechaAcaba) {
+    public Partes_incidencia[] buscarPorFecha(LocalDate fechaEmpieza, LocalDate fechaAcaba) {
         List<Partes_incidencia> listaPartes = listarPartes();
         if (fechaEmpieza == null && fechaAcaba != null) {
             listaPartes = listaPartes.stream()
@@ -133,7 +133,20 @@ public class ParteDAO {
                                     partesIncidencia.getFecha().isBefore(fechaAcaba))
                     .toList();
         }
-        return listaPartes;
+        return listaPartes.toArray(new Partes_incidencia[0]);
+    }
+
+    public void eliminarParte(Partes_incidencia parte) {
+        try {
+            session.beginTransaction();
+            session.delete(parte);
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.clear();
+        }
     }
 
 }
