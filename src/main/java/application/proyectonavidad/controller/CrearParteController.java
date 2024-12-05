@@ -71,11 +71,11 @@ public class CrearParteController extends SuperController implements Initializab
     private int punt_partes = 1;
 
     ParteDAO parteDAO = new ParteDAO();
-    Boolean editar = false;
 
     private String[] horas = {"08:30", "09:25", "10:20", "11:40", "12:35", "13:30", "16:00", "16:55", "17:50", "19:00", "19:55", "20:50"};
     private String[] sanciones = {"Incoación de expediente o expediente abreviado", "Reunion con la Comisión de Convivencia", "Obligatorio pedir disculpas a los afectados y reparar los daños causados", "✎ Rellenar a mano"};
 
+    Partes_incidencia parte1;
     Alumnos alumno1;
     Grupos grupo1;
 
@@ -103,7 +103,30 @@ public class CrearParteController extends SuperController implements Initializab
     }
 
     @FXML
+    void OnParteVerdeClic(ActionEvent event) {
+        SetParteVerde();
+    }
+
+    @FXML
     void OnParteNaranjaClic(ActionEvent event) {
+        SetParteNaranja();
+    }
+
+    @FXML
+    void OnParteRojoClic(ActionEvent event) {
+        SetParteRojo();
+    }
+
+    public void SetParteVerde(){
+        fondoParte.setStyle("-fx-background-color: #befc77;");
+        tituloPagina.setText("PARTE VERDE DE ADVERTENCIA");
+        tipoParte = "Advertencia";
+        SancionAMano.setVisible(true);
+        SancionComboBox.setVisible(false);
+        puntos = 1;
+    }
+
+    public void SetParteNaranja(){
         fondoParte.setStyle("-fx-background-color: #fa9746;");
         tituloPagina.setText("PARTE NARANJA  DE NOTA NEGATIVA");
         tipoParte = "Suspensión";
@@ -112,8 +135,7 @@ public class CrearParteController extends SuperController implements Initializab
         puntos = 6;
     }
 
-    @FXML
-    void OnParteRojoClic(ActionEvent event) {
+    public void SetParteRojo(){
         fondoParte.setStyle("-fx-background-color: #ff616c;");
         tituloPagina.setText("PARTE ROJO  DE NOTA NEGATIVA");
         tipoParte = "Expulsión";
@@ -123,21 +145,15 @@ public class CrearParteController extends SuperController implements Initializab
     }
 
     @FXML
-    void OnParteVerdeClic(ActionEvent event) {
-        fondoParte.setStyle("-fx-background-color: #befc77;");
-        tituloPagina.setText("PARTE VERDE DE ADVERTENCIA");
-        tipoParte = "Advertencia";
-        SancionAMano.setVisible(true);
-        SancionComboBox.setVisible(false);
-        puntos = 1;
-    }
-
-    @FXML
     public void OnVolverClic(ActionEvent actionEvent) throws IOException {
-        if (Objects.equals(getProfesor().getTipo(), "profesor")) {
-            ChangeStage.cambioEscena("InicioProfesor.fxml", fondoParte);
+        if (getParte()==null){
+            if (Objects.equals(getProfesor().getTipo(), "profesor")) {
+                ChangeStage.cambioEscena("InicioProfesor.fxml", fondoParte);
+            } else {
+                ChangeStage.cambioEscena("InicioJefeEstudios.fxml", fondoParte);
+            }
         } else {
-            ChangeStage.cambioEscena("InicioJefeEstudios.fxml", fondoParte);
+            ChangeStage.cambioEscena("VistaParte.fxml",fondoParte);
         }
     }
 
@@ -163,7 +179,6 @@ public class CrearParteController extends SuperController implements Initializab
                 return false;
             }
         }
-
         return true;
     }
 
@@ -177,6 +192,8 @@ public class CrearParteController extends SuperController implements Initializab
             } else {
                 AlertUtils.mostrarError("Ese alumno no existe");
             }
+        } else {
+            GrupoText.setText("");
         }
     }
 
@@ -193,9 +210,11 @@ public class CrearParteController extends SuperController implements Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Introducimos los valores a los ComboBox
         HoraCombo.getItems().addAll(horas);
         ComboSancion.getItems().addAll(sanciones);
 
+        //Dependiendode la opcion sleccionada en el combobox mostramos o escondemos el campo para rellenar a mano
         ComboSancion.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && Objects.equals(newValue.toString(), "✎ Rellenar a mano")) {
                 RellenarAAmano.setVisible(true);
@@ -204,14 +223,49 @@ public class CrearParteController extends SuperController implements Initializab
             }
         });
 
-        if (editar){
+        if (getParte()==null){
+            CrearButton.setVisible(true);
+            EditarButton.setVisible(false);
+            NombreProfesor.setText(getProfesor().getNombre());
+        } else {
             CrearButton.setVisible(false);
             EditarButton.setVisible(true);
+            parte1=getParte();
+            cargarParte();
         }
-
-        NombreProfesor.setText(getProfesor().getNombre());
     }
 
-    public void OnEditarClic(ActionEvent actionEvent) {
+    public void cargarParte(){
+        NumExpedienteAlumnoText.setText(parte1.getId_alum().getNumero_expediente());
+        GrupoText.setText(parte1.getId_alum().getId_grupo().getNombre_grupo());
+        NombreProfesor.setText(parte1.getId_profesor().getNombre());
+        FechaPicker.setValue(parte1.getFecha());
+        HoraCombo.setValue(parte1.getHora());
+        DescripcionText.setText(parte1.getDescripcion());
+        if (parte1.getId_punt_partes()<12) {
+            if (parte1.getId_punt_partes()==1){
+                SetParteVerde();
+            } else {
+                SetParteNaranja();
+            }
+            SancionText.setText(parte1.getSancion());
+        } else {
+            SetParteRojo();
+            if (!Objects.equals(parte1.getSancion(), "Incoación de expediente o expediente abreviado") &&
+                    !Objects.equals(parte1.getSancion(), "Reunion con la Comisión de Convivencia") &&
+                    !Objects.equals(parte1.getSancion(), "Obligatorio pedir disculpas a los afectados y reparar los daños causados")){
+                RellenarAAmano.setVisible(true);
+                ComboSancion.setValue("✎ Rellenar a mano");
+                MiniSancionText.setText(parte1.getSancion());
+            } else {
+                ComboSancion.setValue(parte1.getSancion());
+            }
+        }
+    }
+
+    public void OnEditarClic(ActionEvent actionEvent) throws IOException {
+        if (camposVacios()) {
+            ChangeStage.cambioEscena("VistaParte.fxml", fondoParte);
+        }
     }
 }

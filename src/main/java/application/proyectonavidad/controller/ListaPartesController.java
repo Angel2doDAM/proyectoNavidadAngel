@@ -164,8 +164,8 @@ public class ListaPartesController extends SuperController{
 
     public void OnMouseClic(javafx.scene.input.MouseEvent mouseEvent) throws IOException {
         parte = (Partes_incidencia) LaTabla.getSelectionModel().getSelectedItem();
-        controller = ChangeStage.cambioEscenaParte("VistaParte.fxml", fondoParte);
-        controller.cargarParte(parte);
+        setParte(parte);
+        ChangeStage.cambioEscena("VistaParte.fxml", fondoParte);
     }
 
     public void OnNumeroPressed(KeyEvent keyEvent) {

@@ -9,16 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class ListaAlumnosController extends SuperController{
 
@@ -61,7 +58,7 @@ public class ListaAlumnosController extends SuperController{
 
         // Cargar los partes en la tabla
         alumnos = alumnoDAO.listarAlumnos();
-        cargarPartes();
+        cargarAlumnos();
 
         // Establecer la fábrica de filas
         LaTabla.setRowFactory(tv -> new TableRow<Alumnos>() {
@@ -86,7 +83,7 @@ public class ListaAlumnosController extends SuperController{
         });
     }
 
-    private void cargarPartes() {
+    private void cargarAlumnos() {
         alumnosList = FXCollections.observableArrayList(alumnos);
         LaTabla.setItems(alumnosList);
     }
@@ -102,7 +99,7 @@ public class ListaAlumnosController extends SuperController{
         } else {
             alumnos = alumnoDAO.listarAlumnosByExp(BuscarNumeroExpediente.getText());
         }
-        cargarPartes();
+        cargarAlumnos();
         vaciarCampos();
     }
 
