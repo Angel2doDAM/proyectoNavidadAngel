@@ -41,12 +41,29 @@ public class ParteDAO {
         return alumno;
     }
 
+    public List<Partes_incidencia> filtarByAlumno(Alumnos alumno) {
+        List<Partes_incidencia> partesIncidencias = new ArrayList<>();
+        try {
+            session.beginTransaction();
+            partesIncidencias = session.createQuery("from Partes_incidencia where id_alum=:alumno_id", Partes_incidencia.class)
+                    .setParameter("alumno_id", alumno)
+                    .stream().toList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.clear();
+        }
+        return partesIncidencias;
+    }
+
     public boolean insertarParte(Alumnos alumno, Profesores profesor, int puntos, LocalDate fecha, String hora, String descripcion, String sancion) {
         Partes_incidencia parte = new Partes_incidencia(alumno, profesor, puntos, descripcion, fecha, hora, sancion);
         try {
             session.beginTransaction();
             session.save(parte);
             session.getTransaction().commit();
+            modificarAlumno(parte.getId_alum());
             return true;
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -57,7 +74,7 @@ public class ParteDAO {
     }
 
     public Partes_incidencia[] buscarPartes() {
-        Session session = HibernateUtil.getSessionFactory().openSession(); // Asegúrate de tener un método para obtener la sesión
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         List<Partes_incidencia> partesList = null;
 
@@ -141,12 +158,33 @@ public class ParteDAO {
             session.beginTransaction();
             session.delete(parte);
             session.getTransaction().commit();
-
+            modificarAlumno(parte.getId_alum());
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {
             session.clear();
         }
+    }
+
+    public boolean modificarParte(Partes_incidencia parte) {
+        boolean modificado = false;
+        try {
+            session.beginTransaction();
+            session.update(parte);
+            session.getTransaction().commit();
+            modificarAlumno(parte.getId_alum());
+            modificado = true;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.clear();
+        }
+        return modificado;
+    }
+
+    public void modificarAlumno(Alumnos alumno) {
+        AlumnoDAO dao = new AlumnoDAO();
+        dao.modificarAlumno(alumno);
     }
 
 }

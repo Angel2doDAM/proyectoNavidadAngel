@@ -9,15 +9,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class ListaAlumnosController extends SuperController{
+
+    public Pagination pagination;
 
     @FXML
     private TextField BuscarNumeroExpediente;
@@ -50,14 +55,17 @@ public class ListaAlumnosController extends SuperController{
 
     @FXML
     void initialize() {
+        ExpedienteColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        NombreAlumnoColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        GrupoColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        PuntosColumn.setStyle("-fx-alignment: CENTER-LEFT;");
         // Inicializa las columnas de la tabla
         ExpedienteColumn.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getNumero_expediente()));
         NombreAlumnoColumn.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getNombre_alum()));
         GrupoColumn.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getId_grupo().getNombre_grupo()));
         PuntosColumn.setCellValueFactory(data-> new ReadOnlyObjectWrapper<>(data.getValue().getPuntos_acumulados()).asString());
 
-        // Cargar los partes en la tabla
-        alumnos = alumnoDAO.listarAlumnos();
+        alumnos=alumnoDAO.listarAlumnos();
         cargarAlumnos();
 
         // Establecer la fábrica de filas
@@ -83,9 +91,32 @@ public class ListaAlumnosController extends SuperController{
         });
     }
 
+    public int filaporPagina(){
+        return 7;
+    }
+
+    private Node crearPaginas(int pageIndex){
+        int fromIndex=pageIndex*filaporPagina();
+        int toIndex=Math.min(fromIndex+filaporPagina(),alumnos.size());
+        LaTabla.setItems(FXCollections.observableArrayList(alumnos.subList(fromIndex,toIndex)));
+
+        return new BorderPane(LaTabla);
+    }
+
     private void cargarAlumnos() {
+        int paginas=1;
+
         alumnosList = FXCollections.observableArrayList(alumnos);
         LaTabla.setItems(alumnosList);
+
+        if(alumnos.size()==0){
+            paginas= alumnos.size()/filaporPagina();
+        } else if (alumnos.size()>filaporPagina()) {
+            paginas= alumnos.size()/filaporPagina();
+        }
+        pagination.setPageCount(paginas);
+        pagination.setCurrentPageIndex(0);
+        pagination.setPageFactory(this::crearPaginas);
     }
 
     @FXML

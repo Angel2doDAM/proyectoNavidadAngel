@@ -263,9 +263,30 @@ public class CrearParteController extends SuperController implements Initializab
         }
     }
 
+    @FXML
     public void OnEditarClic(ActionEvent actionEvent) throws IOException {
         if (camposVacios()) {
-            ChangeStage.cambioEscena("VistaParte.fxml", fondoParte);
+            String sancion = "";
+            if (puntos < 12) {
+                sancion = SancionText.getText();
+            } else if (Objects.equals(ComboSancion.getValue().toString(), "✎ Rellenar a mano")) {
+                sancion = MiniSancionText.getText();
+            } else {
+                sancion = ComboSancion.getValue().toString();
+            }
+            parte.setFecha(FechaPicker.getValue());
+            parte.setHora(HoraCombo.getValue().toString());
+            parte.setDescripcion(DescripcionText.getText());
+            parte.setSancion(sancion);
+            parte.setId_punt_partes(puntos);
+            if (parteDAO.modificarParte(parte)) {
+                AlertUtils.mostrarAcierto("Parte modificado");
+                //parte = null;
+                alumno = null;
+                ChangeStage.cambioEscena("VistaParte.fxml", fondoParte);
+            } else {
+                AlertUtils.mostrarError("Error al modificar el parte");
+            }
         }
     }
 }

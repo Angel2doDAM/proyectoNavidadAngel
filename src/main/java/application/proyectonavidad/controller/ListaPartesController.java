@@ -73,6 +73,13 @@ public class ListaPartesController extends SuperController{
 
     @FXML
     void initialize() {
+        ExpedienteColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        NombreAlumnoColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        GrupoColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        ProfesorColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        FechaColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        DescripcionColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        SancionColumn.setStyle("-fx-alignment: CENTER-LEFT;");
         // Inicializa las columnas de la tabla
         ExpedienteColumn.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getId_alum().getNumero_expediente()));
         NombreAlumnoColumn.setCellValueFactory(data->new ReadOnlyObjectWrapper<>(data.getValue().getId_alum().getNombre_alum()));
